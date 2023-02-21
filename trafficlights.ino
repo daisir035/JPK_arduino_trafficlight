@@ -81,7 +81,7 @@ void loop() {
             mroad = 1;
   			digitalWrite(LED_G2, LOW);
       
-  			digitalWrite(LED_Y2, HIGH);      	
+  			digitalWrite(LED_Y2, HIGH);   //闪烁   	
     		delay(1000); 
     		digitalWrite(LED_Y2, LOW);
      		digitalWrite(LED_R1, LOW);       
