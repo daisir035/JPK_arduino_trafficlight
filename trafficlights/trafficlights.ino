@@ -18,7 +18,7 @@ float cm2;
 
 int mroad = 1;    // main road switch
 int counter = 0;    // sider road open counter 
-float dis = 330;  // the distance to change the light
+float dis = 10;  // the distance to change the light
 
 void setup() {
   
@@ -124,6 +124,8 @@ void changemainroad(){
       digitalWrite(LED_R2, LOW);          // turn off the red light in sider road 
       digitalWrite(LED_R1, HIGH);         // turn on the red light in main road 
       digitalWrite(LED_G2, HIGH);         // turn on the green light in sider road 
+      delay(5000);
+
 }
 
 void changeSideroad(){
@@ -146,4 +148,5 @@ void changeSideroad(){
     digitalWrite(LED_R1, LOW);          // turn off the red light in main road
     digitalWrite(LED_R2, HIGH);         // turn on the red light in sider road
     digitalWrite(LED_G1, HIGH);         // turn on the green light in main road
+    delay(5000);
 }
