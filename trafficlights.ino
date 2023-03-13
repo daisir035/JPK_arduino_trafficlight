@@ -62,6 +62,7 @@ void loop() {
   digitalWrite(TrigPin,HIGH);      // set the trig pin high for 10 microseconds
   delayMicroseconds(10);           // wait for 10 microseconds
   digitalWrite(TrigPin,LOW);       // set the trig pin low
+  Serial.print("mainroad:");
   cm=pulseIn(EchoPin,HIGH)/58.0;   // measure the distance in cm
   Serial.print(cm);                // print the distance
   Serial.print("cm");              // print the unit
@@ -73,7 +74,8 @@ void loop() {
   digitalWrite(TrigPin2,HIGH);
   delayMicroseconds(10);
   digitalWrite(TrigPin2,LOW);
-  cm2=pulseIn(EchoPin2,HIGH)/58.0;    
+  cm2=pulseIn(EchoPin2,HIGH)/58.0;
+  Serial.print("siderroad:"); 
   Serial.print(cm2);                 
   Serial.print("cm");               
   Serial.println(); 
@@ -82,21 +84,24 @@ void loop() {
   if(cm2<dis && mroad == 1 && cm>dis){      //if the mainroad open and there is no car in main road and there is car in sider road change light
     mroad = 0;
     changemainroad();
+    counter= 0;
   }
 
   if(cm2>=dis && mroad == 0 || cm<dis && mroad == 0){
     mroad = 1;
     changeSideroad();
+    counter= 0;
   }
 
   if (mroad == 1 && cm2<dis && cm<dis)  // if there is car in both road count the time
   {
     counter = counter + 1;              // count the time
-    if (counter > 10){                  // if the time is more than 10s change the light
+    if (counter > 7 ){                  // if the time is more than 10s change the light
       counter = 0;                      // reset the counter
       changemainroad();                 // change the light
+      mroad = 0;
       delay(3000);
-      changeSideroad();
+
     }
   }
     delay(1000);                        //delay 1000ms to avoid the sensor reading error
@@ -118,7 +123,7 @@ void changemainroad(){
         delay(500); 
         digitalWrite(LED_Y1, LOW); 
            
-        delay(500); 
+        delay(500);
       }
 
       digitalWrite(LED_R2, LOW);          // turn off the red light in sider road 
@@ -136,13 +141,13 @@ void changeSideroad(){
   }
 
   analogWrite(LED_R1,100);              // turn down brightness of the red ligh in the main road
-  
+
   for( int a = 0; a < 3; a = a + 1 ){
     digitalWrite(LED_Y2, HIGH);         // blink the yellow light in sider road 3 times fast
     delay(500); 
     digitalWrite(LED_Y2, LOW);          // turn off the yellow light in sider road       
     delay(500); 
-  }
+  }                 // turn down brightness of the red ligh in the main road 
     digitalWrite(LED_R1, LOW);          // turn off the red light in main road
     digitalWrite(LED_R2, HIGH);         // turn on the red light in sider road
     digitalWrite(LED_G1, HIGH);         // turn on the green light in main road
