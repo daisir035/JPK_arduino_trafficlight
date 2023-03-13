@@ -18,7 +18,7 @@ float cm2;
 
 int mroad = 1;   // main road switch
 int counter = 0; // sider road open counter
-float dis = 330; // the distance to change the light
+float dis = 10; // the distance to change the light
 
 void setup()
 {
