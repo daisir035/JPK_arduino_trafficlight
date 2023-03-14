@@ -80,6 +80,9 @@ void loop()
   Serial.print(cm2);
   Serial.print("cm");
   Serial.println();
+
+
+
   //
 
   if (cm2 < dis && mroad == 1 && cm > dis)// if the mainroad open and there is no car in main road and there is car in sider road change light
@@ -104,6 +107,7 @@ void loop()
       counter = 0;      // reset the counter
       changemainroad(); // change the light
       mroad = 0;
+
       delay(3000);
     }
   }
