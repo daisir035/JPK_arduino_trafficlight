@@ -18,7 +18,7 @@ float cm2;
 
 int mroad = 1;   // main road switch
 int counter = 0; // sider road open counter
-float dis = 10; // the distance to change the light
+float dis = 10;  // the distance to change the light
 
 void setup()
 {
@@ -81,11 +81,9 @@ void loop()
   Serial.print("cm");
   Serial.println();
 
-
-
   //
 
-  if (cm2 < dis && mroad == 1 && cm > dis)// if the mainroad open and there is no car in main road and there is car in sider road change light
+  if (cm2 < dis && mroad == 1 && cm > dis) // if the mainroad open and there is no car in main road and there is car in sider road change light
   {
     mroad = 0;
     changemainroad();
@@ -107,7 +105,6 @@ void loop()
       counter = 0;      // reset the counter
       changemainroad(); // change the light
       mroad = 0;
-
       delay(3000);
     }
   }
@@ -141,7 +138,7 @@ void changemainroad()
   digitalWrite(LED_G2, HIGH); // turn on the green light in sider road
 }
 
-void changeSideroad()// change the light in sider road
+void changeSideroad() // change the light in sider road
 {
   digitalWrite(LED_G2, LOW); // turn off the green light in sider road
   for (int a = 0; a < 3; a = a + 1)
