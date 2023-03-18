@@ -90,7 +90,7 @@ void loop()
     counter = 0;
   }
 
-  if (cm2 >= dis && mroad == 0 || cm < dis && mroad == 0)
+  if (cm2 >= dis && mroad == 0 || cm < dis && mroad == 0) // if there is no car in sider road or there is car in main road change light
   {
     mroad = 1;
     changeSideroad();
@@ -111,7 +111,7 @@ void loop()
   delay(1000); // delay 1000ms to avoid the sensor reading error
 }
 
-void changemainroad()
+void changemainroad() // change the light in main road
 {
   digitalWrite(LED_G1, LOW); // turn off the green light in main road
   for (int a = 0; a < 3; a = a + 1)
