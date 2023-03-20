@@ -8,16 +8,16 @@ const int EchoPin2 = 3; // Set the echo pin position of the sensor
 const int LED_G1 = 4;  // green light in main road
 const int LED_Y1 = 5;  // yellow light in main road
 const int LED_R1 = 6;  // red light in main road
-const int LED_G2 = 8;  // green light in sider road
-const int LED_Y2 = 9;  // yellow light in sider road
-const int LED_R2 = 10; // red light in sider road
+const int LED_G2 = 8;  // green light in minor road
+const int LED_Y2 = 9;  // yellow light in minor road
+const int LED_R2 = 10; // red light in minor road
 
 // float type variable to store the distance in main road
 float cm;
 float cm2;
 
 int mroad = 1;   // main road switch
-int counter = 0; // sider road open counter
+int counter = 0; // minor road open counter
 float dis = 10;  // the distance to change the light
 
 void setup()
@@ -52,7 +52,7 @@ void setup()
   digitalWrite(LED_Y2, HIGH);
   delay(300);
   digitalWrite(LED_Y2, LOW);
-  digitalWrite(LED_R2, HIGH); // turn the red LED in sider road on
+  digitalWrite(LED_R2, HIGH); // turn the red LED in minor road on
 }
 
 void loop()
@@ -76,24 +76,24 @@ void loop()
   delayMicroseconds(10);
   digitalWrite(TrigPin2, LOW);
   cm2 = pulseIn(EchoPin2, HIGH) / 58.0;
-  Serial.print("siderroad:");
+  Serial.print("minorroad:");
   Serial.print(cm2);
   Serial.print("cm");
   Serial.println();
 
   //
 
-  if (cm2 < dis && mroad == 1 && cm > dis) // if the mainroad open and there is no car in main road and there is car in sider road change light
+  if (cm2 < dis && mroad == 1 && cm > dis) // if the mainroad open and there is no car in main road and there is car in minor road change light
   {
     mroad = 0;
     changemainroad();
     counter = 0;
   }
 
-  if (cm2 >= dis && mroad == 0 || cm < dis && mroad == 0) // if there is no car in sider road or there is car in main road change light
+  if (cm2 >= dis && mroad == 0 || cm < dis && mroad == 0) // if there is no car in minor road or there is car in main road change light
   {
     mroad = 1;
-    changeSideroad();
+    changeminoroad();
     counter = 0;
   }
 
@@ -133,19 +133,19 @@ void changemainroad() // change the light in main road
     delay(500);
   }
 
-  digitalWrite(LED_R2, LOW);  // turn off the red light in sider road
+  digitalWrite(LED_R2, LOW);  // turn off the red light in minor road
   digitalWrite(LED_R1, HIGH); // turn on the red light in main road
-  digitalWrite(LED_G2, HIGH); // turn on the green light in sider road
+  digitalWrite(LED_G2, HIGH); // turn on the green light in minor road
 }
 
-void changeSideroad() // change the light in sider road
+void changeminoroad() // change the light in minor road
 {
-  digitalWrite(LED_G2, LOW); // turn off the green light in sider road
+  digitalWrite(LED_G2, LOW); // turn off the green light in minor road
   for (int a = 0; a < 3; a = a + 1)
   {
-    digitalWrite(LED_Y2, HIGH); // blink the yellow light in sider road 3 times slow
+    digitalWrite(LED_Y2, HIGH); // blink the yellow light in minor road 3 times slow
     delay(1000);
-    digitalWrite(LED_Y2, LOW); // turn off the yellow light in sider road
+    digitalWrite(LED_Y2, LOW); // turn off the yellow light in minor road
     delay(1000);
   }
 
@@ -153,12 +153,12 @@ void changeSideroad() // change the light in sider road
 
   for (int a = 0; a < 3; a = a + 1)
   {
-    digitalWrite(LED_Y2, HIGH); // blink the yellow light in sider road 3 times fast
+    digitalWrite(LED_Y2, HIGH); // blink the yellow light in minor road 3 times fast
     delay(500);
-    digitalWrite(LED_Y2, LOW); // turn off the yellow light in sider road
+    digitalWrite(LED_Y2, LOW); // turn off the yellow light in minor road
     delay(500);
   }                           // turn down brightness of the red ligh in the main road
   digitalWrite(LED_R1, LOW);  // turn off the red light in main road
-  digitalWrite(LED_R2, HIGH); // turn on the red light in sider road
+  digitalWrite(LED_R2, HIGH); // turn on the red light in minor road
   digitalWrite(LED_G1, HIGH); // turn on the green light in main road
 }
